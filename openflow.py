@@ -83,15 +83,17 @@ class Tutorial (object):
         """
         Implement switch-like behavior with OpenFlow rule installation.
         """
+        print ("Packet from ",str(packet.src)," on port", packet_in.in_port,"to", str(packet.dst)  )
         # Learn the port for the source MAC
         if packet.src not in self.mac_to_port:
             # Learn that the packet's source address is connected to the input port
             self.mac_to_port[packet.src] = packet_in.in_port
+            print(f"Learend {packet.src} has port {packet_in.in_port}")
 
         # If the destination MAC is in our MAC-to-Port table, forward to that port
         if packet.dst in self.mac_to_port:
             out_port = self.mac_to_port[packet.dst]
-            
+            print(f"path known from {packet.src} to {packet.dst} via ports {packet.in_port} and {out_port}")
             # Install flow rule for future packets of this flow
             # Create a flow modification message
             fm = of.ofp_flow_mod()
