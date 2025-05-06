@@ -86,7 +86,7 @@ class Tutorial (object):
         
         
         
-        print ("Src: ",str(packet.src),":", packet_in.in_port,"Dst:", str(packet.dst)  )
+        print ("Packet from ",str(packet.src)," on port", packet_in.in_port,"to", str(packet.dst)  )
         if packet.src not in self.mac_to_port: 
             print("Learning that " + str(packet.src) + " is attached at port " + str(packet_in.in_port))
             self.mac_to_port[packet.src] = packet_in.in_port 
@@ -94,7 +94,7 @@ class Tutorial (object):
         if packet.dst in self.mac_to_port: 
         # Send packet out the associated port 
             print(str(packet.dst) + " destination known. only send message to it")
-            self.resend_acket(packet_in, self.mac_to_port[packet.dst]) 
+            self.resend_packet(packet_in, self.mac_to_port[packet.dst]) 
         else: 
         # Flood the packet out everything but the input port  
         # This part looks familiar, right? 
